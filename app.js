@@ -25,10 +25,9 @@ window.addEventListener("load", () => {
           const temperature = data.current.temp_c;
           const fahrenheit = data.current.temp_f;
           const conditions = data.current.condition.text;
-          const lastUpdate = new Date(data.current.last_updated);
-          const updateDate = lastUpdate.toDateString();
-          const updateTime = lastUpdate.toLocaleTimeString();
-          const formattedDate = `${updateDate} ${updateTime}`;
+          const lastUpdate = new Date(data.current.last_updated).toLocaleString(
+            "en-GB"
+          );
           temperatureDegree.textContent = temperature;
           temperatureDescription.textContent = conditions;
           locationTimezone.textContent = data.location.name;
@@ -37,7 +36,7 @@ window.addEventListener("load", () => {
           setIcon.setAttribute("alt", "weather-icon");
           setIcon.setAttribute("height", "200vh");
           setIcon.setAttribute("width", "200vh");
-          lastUpdated.textContent = `Last updated: ${formattedDate}`;
+          lastUpdated.textContent = `Last updated: ${lastUpdate}`;
 
           degreeSection.addEventListener("click", () => {
             if (degreeSpan.textContent === "C") {
