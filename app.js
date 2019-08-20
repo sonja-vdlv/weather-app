@@ -30,7 +30,7 @@ window.addEventListener("load", () => {
           );
           temperatureDegree.textContent = temperature;
           temperatureDescription.textContent = conditions;
-          locationTimezone.textContent = data.location.name;
+          locationTimezone.textContent = data.location.tz_id;
           const imgUrl = data.current.condition.icon;
           setIcon.setAttribute("src", `${imgUrl}`);
           setIcon.setAttribute("alt", "weather-icon");
