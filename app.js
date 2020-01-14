@@ -15,27 +15,27 @@ window.addEventListener("load", () => {
       long = position.coords.longitude;
       lat = position.coords.latitude;
 
-      const api = `http://api.apixu.com/v1/current.json?key=bede18fedf5b429aada222052190108&q=${lat},${long}`;
+      const api = `http://api.weatherbit.io/v2.0/current?key=a5ac629119724e89acfda1b12c5eb130&lat=${lat}&lon=${long}`;
       fetch(api)
         .then(response => {
           return response.json();
         })
         .then(data => {
           console.log(data);
-          const temperature = data.current.temp_c;
-          const fahrenheit = data.current.temp_f;
-          const conditions = data.current.condition.text;
-          const lastUpdate = new Date(data.current.last_updated).toLocaleString(
+          const temperature = data.data[0].app_temp;
+          const fahrenheit = parseInt((temperature * 9) / 5 + 32);
+          const conditions = data.data[0].weather.description;
+          const lastUpdate = new Date(data.data[0].last_ob_time).toLocaleString(
             "en-GB"
           );
           temperatureDegree.textContent = temperature;
           temperatureDescription.textContent = conditions;
-          locationTimezone.textContent = data.location.tz_id;
-          const imgUrl = data.current.condition.icon;
-          setIcon.setAttribute("src", `${imgUrl}`);
-          setIcon.setAttribute("alt", "weather-icon");
-          setIcon.setAttribute("height", "200vh");
-          setIcon.setAttribute("width", "200vh");
+          locationTimezone.textContent = data.data[0].city_name;
+          // const imgUrl = data.current.condition.icon;
+          // setIcon.setAttribute("src", `${imgUrl}`);
+          // setIcon.setAttribute("alt", "weather-icon");
+          // setIcon.setAttribute("height", "200vh");
+          // setIcon.setAttribute("width", "200vh");
           lastUpdated.textContent = `Last updated: ${lastUpdate}`;
 
           degreeSection.addEventListener("click", () => {
